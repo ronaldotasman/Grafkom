@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+   <style>
+      #mycanvas {
+         border: 2px solid black;
+      }
+   </style>
+</head>
+
+<body>
+   <canvas id=mycanvas width="600" height="600"></canvas>
+
+   <script>
+      const kanvas = document.querySelector("#mycanvas");
+      const ctx = kanvas.getContext("2d");
+
+      let dataGambar = ctx.getImageData(0, 0, kanvas.width, kanvas.height);
+
+      function gbr_titik(datanya, posisi, warna) {
+         let { x, y } = posisi;
+         let { r, g, b } = warna;
+         let index = (x + y * kanvas.width) * 4;
+
+         datanya.data[index] = r;
+         datanya.data[index + 1] = g;
+         datanya.data[index + 2] = b;
+         datanya.data[index + 3] = 255;
+      }
+
+      let i = 0;
+      let x = 0;
+      for (let i = 0; i < 100; i++) {
+         for (let x = 0; x < i; x++) {
+            gbr_titik(dataGambar, { x: 100 + i, y: 100 + x }, { r: 255, g: 0, b: 0 });
+         }
+         ctx.putImageData(dataGambar, 0, 0);
+      }
+
+      for (let i = 0; i < 100; i++) {
+         for (let x = i; x < i; x++) {
+            gbr_titik(dataGambar, { x: 0 + i, y: 100 + x }, { r: 255, g: 0, b: 0 });
+         }
+         ctx.putImageData(dataGambar, 0, 0);
+      }
+
+      for (let i = 0; i < 100; i++) {
+         for (let x = 0; x < i; x++) {
+            gbr_titik(dataGambar, { x: 250 + i, y: 100 + x }, { r: 255, g: 0, b: 0 });
+         }
+         ctx.putImageData(dataGambar, 0, 0);
+      }
+
+   </script>
+</body>
+
+</html>
